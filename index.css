@@ -48,6 +48,10 @@ header h1 {
     font-weight: 600;
 }
 
+nav {
+    margin-right: 2rem;
+}
+
 nav ul {
     list-style-type: none;
     padding: 0;
@@ -74,7 +78,6 @@ nav ul li a:hover {
     max-width: 1200px;
     margin: 100px auto 0;
     padding: 2rem 0;
-    text-decoration: none;
 }
 
 .search-bar {
@@ -133,7 +136,7 @@ nav ul li a:hover {
 .service-card h3 {
     color: #000;
     margin-top: 0;
-    text-decoration: dashed;
+    text-decoration: none;
 }
 
 .service-card p {
@@ -263,6 +266,10 @@ nav ul li a:hover {
     
     nav ul {
         margin-top: 1rem;
+    }
+
+    nav {
+        margin-right: 0; /* Reset margin for smaller screens */
     }
 }
 

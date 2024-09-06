@@ -16,10 +16,10 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -195,9 +195,9 @@
                 card.className = 'service-card';
                 card.innerHTML = `
                     <img src="${service.image}" alt="${service.title}">
-                    <h3>${service.title}</h3>
-                    <p>${service.description}</p>
-                    <small>Category: ${service.category}</small>
+                    <h3 style="text-decoration: none;">${service.title}</h3>
+                    <p style="text-decoration: none;">${service.description}</p>
+                    <small style="text-decoration: none;">Category: ${service.category}</small>
                 `;
                 card.addEventListener('click', () => showModal(service));
                 return card;
