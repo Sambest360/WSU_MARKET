@@ -91,6 +91,29 @@
         .form-group {
             margin-bottom: 1rem;
         }
+        .contact-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #25D366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .whatsapp-button:hover {
+            background-color: #128C7E;
+        }
+        .whatsapp-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
         label {
             display: block;
             margin-bottom: 0.5rem;
@@ -146,42 +169,52 @@
         <p style="text-align: center;">At WSU, we offer a wide variety of safe and stylish piercing options performed by trained professionals. Express your individuality and enhance your beauty with our high-quality piercing services.</p>
         <div class="gallery">
             <div class="gallery-item">
-                <img src="img/ear-piercing.jpg" alt="Ear Piercing">
+                <img src="img/ear.jpg" alt="Ear Piercing">
                 <div class="info">
                     <h3>Ear Piercings</h3>
                     <p>Lobe, helix, tragus, and more</p>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="img/nose-piercing.jpg" alt="Nose Piercing">
+                <img src="img/mouth 2.jpg" alt="Lip Piercing">
+                <div class="info">
+                    <h3>Lip Piercings</h3>
+                    <p>Snake bites, spider bites, and more</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="img/nose.jpg" alt="Nose Piercing">
                 <div class="info">
                     <h3>Nose Piercings</h3>
                     <p>Nostril and septum options</p>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="img/lip-piercing.jpg" alt="Lip Piercing">
+                <img src="img/mouth.jpg" alt="Lip Piercing">
                 <div class="info">
                     <h3>Lip Piercings</h3>
                     <p>Labret, monroe, and medusa</p>
                 </div>
             </div>
+        </div>
+        
+        <div class="gallery">
             <div class="gallery-item">
-                <img src="img/eyebrow-piercing.jpg" alt="Eyebrow Piercing">
+                <img src="img/eyebrow.jpg" alt="Eyebrow Piercing">
                 <div class="info">
                     <h3>Eyebrow Piercings</h3>
                     <p>Vertical and horizontal options</p>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="img/navel-piercing.jpg" alt="Navel Piercing">
+                <img src="img/belly.jpg" alt="Navel Piercing">
                 <div class="info">
                     <h3>Navel Piercings</h3>
                     <p>Classic and inverse belly button</p>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="img/dermal-piercing.jpg" alt="Dermal Piercing">
+                <img src="img/Custom.jpg" alt="Dermal Piercing">
                 <div class="info">
                     <h3>Dermal Piercings</h3>
                     <p>Customizable surface piercings</p>
@@ -189,31 +222,12 @@
             </div>
         </div>
         
-        <h2>Book Your Piercing Appointment</h2>
-        <div class="contact-form">
-            <form action="#" method="POST">
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="piercing-type">Desired Piercing:</label>
-                    <input type="text" id="piercing-type" name="piercing-type" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Additional Information or Concerns:</label>
-                    <textarea id="message" name="message"></textarea>
-                </div>
-                <button type="submit" class="cta-button">Schedule Your Appointment</button>
-            </form>
+        <h2 style="text-align: center;">Book Your Piercing Appointment</h2>
+        <div class="contact-button">
+            <a href="https://wa.me/+27658068164" target="_blank" class="whatsapp-button">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" class="whatsapp-icon">
+                Contact via WhatsApp
+            </a>
         </div>
     </div>
 </body>
