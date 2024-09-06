@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WSU Small Business Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f39c12;
+            --background-color: #f5f7fa;
+            --text-color: #333;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease;
+        }
+        
+        header.transparent {
+            background-color: rgba(74, 144, 226, 0.7);
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 1rem;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+        }
+        
+        nav ul li {
+            margin-left: 1rem;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 2rem 0;
+        }
+        
+        .search-bar {
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        #search-input {
+            width: 100%;
+            max-width: 600px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        #search-input:focus {
+            outline: none;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-gap: 2rem;
+        }
+        
+        .service-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .service-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card h3 {
+            color: #000;
+            margin-top: 0;
+            text-decoration: none;
+        }
+        
+        .service-card p {
+            margin-bottom: 0.5rem;
+            color: #000;
+            text-decoration: none;
+        }
+        
+        .service-card small {
+            color: var(--secondary-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(74, 144, 226, 0.1), rgba(74, 144, 226, 0));
+            transition: top 0.3s ease-in-out;
+        }
+        
+        .service-card:hover::before {
+            top: 0;
+        }
+        
+        #no-results-message {
+            display: none;
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-top: 2rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-title {
+            color: #000;
+            margin-top: 0;
+        }
+        
+        .modal-description {
+            margin-bottom: 1rem;
+            color: #000;
+        }
+        
+        .modal-category {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-button {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .modal-button:hover {
+            background-color: #3a7bc0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            
+            header {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                padding: 0.5rem;
+            }
+            
+            header h1 {
+                font-size: 1.2rem;
+            }
+            
+            .logo {
+                width: 30px;
+                height: 30px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.25rem;
+            }
+            
+            nav ul li a {
+                font-size: 0.9rem;
+            }
+            
+            .search-bar {
+                margin-top: 1rem;
+            }
+            
+            #search-input {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div>
+            <img src="/img/Walter-Sisulu-University-Logo.jpg.jpeg" alt="Walter Sisulu University Logo" class="logo">
+            <h1>WSU Small Business Services</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search for services or businesses...">
+        </div>
+
+        <div id="no-results-message">
+            Sorry, the service you're looking for is not available at the moment.
+        </div>
+
+        <div class="services-grid" id="services-grid">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Web Development">
+                <h3>Web Development</h3>
+                <p>Student-led web development services for university projects and local businesses</p>
+                <small>Category: Technology</small>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80" alt="Graphic Design">
+                <h3>Graphic Design</h3>
+                <p>Logo design, branding, and visual identity</p>
+                <small>Category: Creative</small>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80" alt="Peer Tutoring">
+                <h3>Peer Tutoring</h3>
+                <p>One-on-one academic support from top-performing students in various subjects</p>
+                <small>Category: Education</small>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Event Photography">
+                <h3>Event Photography</h3>
+                <p>Professional event photography services</p>
+                <small>Category: Creative</small>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Campus Catering">
+                <h3>Campus Catering</h3>
+                <p>Student-run catering service</p>
+                <small>Category: Food</small>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Seedo's Fast Food">
+                <h3>Seedo's Fast Food</h3>
+                <p>Delicious food</p>
+                <small>Category: Food</small>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Hair Cutting">
+                <h3>Hair Cutting</h3>
+                <p>Professional haircuts by skilled student stylists</p>
+                <small>Category: Beauty</small>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Cab Driving">
+                <h3>Cab Driving</h3>
+                <p>Reliable and affordable student-driven cab services around campus</p>
+                <small>Category: Transportation</small>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Hair Braiding">
+                <h3>Hair Braiding</h3>
+                <p>Expert hair braiding services by talented student stylists</p>
+                <small>Category: Beauty</small>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modal-image" class="modal-image" src="" alt="">
+            <h2 id="modal-title" class="modal-title"></h2>
+            <p id="modal-description" class="modal-description"></p>
+            <p id="modal-category" class="modal-category"></p>
+            <button id="modal-button" class="modal-button">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const servicesGrid = document.getElementById('services-grid');
+            const noResultsMessage = document.getElementById('no-results-message');
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDescription = document.getElementById('modal-description');
+            const modalCategory = document.getElementById('modal-category');
+            const modalButton = document.getElementById('modal-button');
+            const closeButton = document.getElementsByClassName('close')[0];
+            const header = document.getElementById('header');
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    header.classList.add('transparent');
+                } else {
+                    header.classList.remove('transparent');
+                }
+            });
+
+            const services = [
+                {
+                    title: "Web Development",
+                    description: "Student-led web development services for university projects and local businesses",
+                    category: "Technology",
+                    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                    link: "web-development.html"
+                },
+                {
+                    title: "Graphic Design",
+                    description: "Logo design, branding, and visual identity",
+                    category: "Creative",
+                    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80",
+                    link: "graphic-design.html"
+                },
+                {
+                    title: "Peer Tutoring",
+                    description: "One-on-one academic support from top-performing students in various subjects",
+                    category: "Education",
+                    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80",
+                    link: "peer-tutoring.html"
+                },
+                {
+                    title: "Event Photography",
+                    description: "Professional event photography services",
+                    category: "Creative",
+                    image: "https://images.unsplash.com/photo-1554048612-b6a482bc67e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                    link: "event-photography.html"
+                },
+                {
+                    title: "Campus Catering",
+                    description: "Student-run catering service",
+                    category: "Food",
+                    image: "https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                    link: "campus-catering.html"
+                },
+                {
+                    title: "Seedo's Fast Food",
+                    description: "Delicious food",
+                    category: "Food",
+                    image: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                    link: "seedos-fast-food.html"
+                },
+                {
+                    title: "Beauty Services",
+                    description: "Professional beauty and makeup services by talented student stylists",
+                    category: "Beauty",
+                    image: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80",
+                    link: "beauty-services.html"
+                },
+                {
+                    title: "Cab Driving",
+                    description: "Reliable and affordable student-driven cab services around campus",
+                    category: "Transportation",
+                    image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                    link: "cab-driving.html"
+                },
+                {
+                    title: "Hair Braiding",
+                    description: "Expert hair braiding services by talented student stylists",
+                    category: "Beauty",
+                    image: "https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                    link: "hair-braiding.html"
+                }
+            ];
+
+            function createServiceCard(service) {
+                const card = document.createElement('div');
+                card.className = 'service-card';
+                card.innerHTML = `
+                    <img src="${service.image}" alt="${service.title}">
+                    <h3>${service.title}</h3>
+                    <p>${service.description}</p>
+                    <small>Category: ${service.category}</small>
+                `;
+                card.addEventListener('click', () => showModal(service));
+                return card;
+            }
+
+            function showModal(service) {
+                modalImage.src = service.image;
+                modalImage.alt = service.title;
+                modalTitle.textContent = service.title;
+                modalDescription.textContent = service.description;
+                modalCategory.textContent = `Category: ${service.category}`;
+                modalButton.onclick = () => window.location.href = service.link;
+                modal.style.display = 'block';
+            }
+
+            closeButton.onclick = function() {
+                modal.style.display = 'none';
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+
+            function renderServices(filteredServices) {
+                servicesGrid.innerHTML = '';
+                if (filteredServices.length === 0) {
+                    noResultsMessage.style.display = 'block';
+                } else {
+                    noResultsMessage.style.display = 'none';
+                    filteredServices.forEach(service => {
+                        servicesGrid.appendChild(createServiceCard(service));
+                    });
+                }
+            }
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const filteredServices = services.filter(service => 
+                    service.title.toLowerCase().includes(searchTerm) ||
+                    service.description.toLowerCase().includes(searchTerm) ||
+                    service.category.toLowerCase().includes(searchTerm)
+                );
+                renderServices(filteredServices);
+            });
+
+            // Initial render of all services
+            renderServices(services);
+        });
+    </script>
+</body>
+</html>
