@@ -6,7 +6,59 @@
     <title>WSU Small Business Services</title>
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+    <style>
+        /* Burger menu styles */
+        .burger-menu {
+            display: none;
+            cursor: pointer;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+        .burger-menu div {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+        .close-menu {
+            display: none;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        @media screen and (max-width: 768px) {
+            .burger-menu {
+                display: block;
+            }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 150px;
+                height: 50vh;
+                background-color: rgba(0, 0, 0, 0.8);
+                padding-top: 20px;
+                transition: 0.3s;
+            }
+            nav ul.show {
+                right: 0;
+                display: flex;
+            }
+            nav ul li {
+                text-align: center;
+                padding: 6px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header id="header">
@@ -15,6 +67,12 @@
             <h1>WSU Small Business Services</h1>
         </div>
         <nav>
+            <div class="burger-menu">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="close-menu">&times;</div>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="services.html">Services</a></li>
@@ -115,6 +173,21 @@
             const modalButton = document.getElementById('modal-button');
             const closeButton = document.getElementsByClassName('close')[0];
             const header = document.getElementById('header');
+            const burgerMenu = document.querySelector('.burger-menu');
+            const closeMenu = document.querySelector('.close-menu');
+            const navUl = document.querySelector('nav ul');
+
+            burgerMenu.addEventListener('click', () => {
+                navUl.classList.add('show');
+                burgerMenu.style.display = 'none';
+                closeMenu.style.display = 'block';
+            });
+
+            closeMenu.addEventListener('click', () => {
+                navUl.classList.remove('show');
+                burgerMenu.style.display = 'block';
+                closeMenu.style.display = 'none';
+            });
 
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 100) {
