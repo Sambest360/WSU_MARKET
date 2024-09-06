@@ -34,19 +34,36 @@
             color: var(--primary-color);
             margin-top: 0;
         }
+        .back-button {
+            display: block;
+            width: fit-content;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px auto 0;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+        header {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: auto;
+            padding: 20px 0;
+            background-color: var(--primary-color);
+            color: #fff;
+        }
     </style>
 </head>
 <body>
     <header id="header">
-        <div>
-            <img src="/img/Walter-Sisulu-University-Logo.jpg.jpeg" alt="Walter Sisulu University Logo" class="logo">
-            <h1>WSU Small Business Services</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-            </ul>
-        </nav>
+        <h1>WSU Small Business Services</h1>
     </header>
 
     <div class="container">
@@ -54,54 +71,7 @@
             <h2>WSU Market Service</h2>
             <p>Welcome to the WSU Market Service! This platform allows students to easily search for and access various food options, services, and products available on campus. Whether you're looking for a quick bite, need academic assistance, or are searching for student-run services, you can find it all here.</p>
         </div>
-
-        <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Search for food, services, or products...">
-        </div>
-
-        <div id="search-results" class="search-results"></div>
+        <a href="index.html" class="back-button">Back to Main Page</a>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('search-input');
-            const searchResults = document.getElementById('search-results');
-
-            const services = [
-                { name: "Campus Café", type: "Food", description: "Quick and delicious meals for students on the go." },
-                { name: "Tech Support", type: "Service", description: "IT help desk run by computer science students." },
-                { name: "Textbook Exchange", type: "Product", description: "Buy and sell used textbooks from fellow students." },
-                { name: "Tutoring Center", type: "Service", description: "Peer-to-peer tutoring for various subjects." },
-                { name: "WSU Merchandise", type: "Product", description: "Official university apparel and accessories." }
-            ];
-
-            function displayResults(results) {
-                searchResults.innerHTML = '';
-                results.forEach(result => {
-                    const resultCard = document.createElement('div');
-                    resultCard.classList.add('result-card');
-                    resultCard.innerHTML = `
-                        <h3>${result.name}</h3>
-                        <p><strong>Type:</strong> ${result.type}</p>
-                        <p>${result.description}</p>
-                    `;
-                    searchResults.appendChild(resultCard);
-                });
-            }
-
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
-                const filteredServices = services.filter(service => 
-                    service.name.toLowerCase().includes(searchTerm) ||
-                    service.type.toLowerCase().includes(searchTerm) ||
-                    service.description.toLowerCase().includes(searchTerm)
-                );
-                displayResults(filteredServices);
-            });
-
-            // Initial display of all services
-            displayResults(services);
-        });
-    </script>
 </body>
 </html>

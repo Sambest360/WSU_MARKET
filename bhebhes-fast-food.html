@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhebhe's Fast Food - Delicious Campus Dining</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        header {
+            background-color: #4a90e2;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 1rem;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #f39c12;
+        }
+        .hero {
+            background-image: url('https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            margin-top: 60px;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #f39c12;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #e67e22;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #4a90e2;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .menu-item {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+        .menu-item-content h3 {
+            margin-top: 0;
+            color: #4a90e2;
+        }
+        .menu-item-content p {
+            margin-bottom: 0.5rem;
+        }
+        .price {
+            font-weight: 600;
+            color: #f39c12;
+        }
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .staff-member {
+            text-align: center;
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .staff-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+        .staff-member h3 {
+            margin-bottom: 0.5rem;
+            color: #4a90e2;
+        }
+        .staff-member p {
+            margin-bottom: 0;
+            color: #666;
+        }
+        #location {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        .social-icons {
+            margin-top: 1rem;
+        }
+        .social-icons a {
+            color: #fff;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: #f39c12;
+        }
+        @media (max-width: 768px) {
+            .menu-grid, .staff-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bhebhe's Fast Food</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#location">Location</a></li>
+                <li><a href="#staff">Our Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="index.html">Back to WSU Market</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Bhebhe's Fast Food</h1>
+            <p>Delicious meals served with a warm smile - your home away from home on campus!</p>
+            <a href="#menu" class="cta-button">View Our Menu</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <section id="menu">
+            <h2 class="section-title">Our Menu</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d" alt="Classic Burger">
+                    <div class="menu-item-content">
+                        <h3>Classic Burger</h3>
+                        <p>Juicy beef patty with fresh lettuce, tomato, and our secret sauce on a toasted bun</p>
+                        <p class="price">$5.99</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1585109649139-366815a0d713" alt="Pepperoni Pizza">
+                    <div class="menu-item-content">
+                        <h3>Pepperoni Pizza</h3>
+                        <p>Crispy thin crust topped with zesty tomato sauce, mozzarella, and premium pepperoni</p>
+                        <p class="price">$8.99</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1619881590738-a111d176d906" alt="Crispy Fries">
+                    <div class="menu-item-content">
+                        <h3>Crispy Fries</h3>
+                        <p>Golden and crispy potato fries seasoned with our special blend of herbs and spices</p>
+                        <p class="price">$2.99</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba" alt="Grilled Chicken Salad">
+                    <div class="menu-item-content">
+                        <h3>Grilled Chicken Salad</h3>
+                        <p>Fresh mixed greens topped with grilled chicken, cherry tomatoes, and balsamic dressing</p>
+                        <p class="price">$7.99</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="location">
+            <h2 class="section-title">Our Location</h2>
+            <p>Find us at: 123 Campus Street, Walter Sisulu University, New Residence, G6</p>
+            <p>Opening Hours: Monday - Friday: 7:00 AM - 12:00 PM | Saturday - Sunday: 8:00 AM - 11:00 PM</p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3412.6889371565483!2d28.173899315114947!3d-31.58752818134067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e5e3b2e30f6e8a7%3A0xbd73e7901e57177e!2sWalter%20Sisulu%20University!5e0!3m2!1sen!2sza!4v1652795892854!5m2!1sen!2sza" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </section>
+
+        <section id="staff">
+            <h2 class="section-title">Meet Our Team</h2>
+            <div class="staff-grid">
+                <div class="staff-member">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80" alt="Jane Doe">
+                    <h3>Jane Doe</h3>
+                    <p>Head Chef</p>
+                </div>
+                <div class="staff-member">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e" alt="John Smith">
+                    <h3>John Smith</h3>
+                    <p>Manager</p>
+                </div>
+                <div class="staff-member">
+                    <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e" alt="Alice Johnson">
+                    <h3>Alice Johnson</h3>
+                    <p>Cashier</p>
+                </div>
+                <div class="staff-member">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d" alt="Michael Brown">
+                    <h3>Michael Brown</h3>
+                    <p>Customer Service</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer id="contact">
+        <h2>Contact Us</h2>
+        <p>Phone: 067 822 4015</p>
+        <p>Email: sambampo2001@gmail.com</p>
+        <div class="social-icons">
+            <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p>&copy; 2024 Bhebhe's Fast Food. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add a scroll event listener to change header style on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(74, 144, 226, 0.9)';
+            } else {
+                header.style.backgroundColor = '#4a90e2';
+            }
+        });
+    </script>
+</body>
+</html>
