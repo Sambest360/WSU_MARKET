@@ -1,38 +1,39 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const xlsx = require('xlsx');
-const fs = require('fs');
-const path = require('path');
+const { google } = require('googleapis');
 
 const app = express();
 app.use(bodyParser.json());
 
+// Google Sheets API setup
+const auth = new google.auth.GoogleAuth({
+    keyFile: 'path/to/your/credentials.json', // You need to create this file
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+});
+
+const sheets = google.sheets({ version: 'v4', auth });
+const spreadsheetId = '1kLHFUj_AuazaQWIPeZMD5jSYHnQJxJOEL100CMCsSiE';
+
 // Handle the form submission
-app.post('/submit-order', (req, res) => {
+app.post('/submit-order', async (req, res) => {
     const { name, email, phone, order, total, delivery, location, payment, proofOfPayment } = req.body;
 
-    // Create a new workbook and worksheet, or load the existing file
-    const filePath = path.join('C:', 'Users', 'samba', 'OneDrive', 'Desktop', 'bhebhe site', 'orders.xlsx');
-    let workbook;
-    let worksheet;
+    try {
+        // Append the new data to the Google Sheet
+        await sheets.spreadsheets.values.append({
+            spreadsheetId,
+            range: 'Sheet1', // Adjust if your sheet has a different name
+            valueInputOption: 'USER_ENTERED',
+            resource: {
+                values: [[name, email, phone, order, total, delivery, location, payment, proofOfPayment]],
+            },
+        });
 
-    if (fs.existsSync(filePath)) {
-        workbook = xlsx.readFile(filePath);
-        worksheet = workbook.Sheets[workbook.SheetNames[0]];
-    } else {
-        workbook = xlsx.utils.book_new();
-        worksheet = xlsx.utils.aoa_to_sheet([['Name', 'Email', 'Phone', 'Order', 'Total', 'Delivery/Collection', 'Location', 'Payment Method', 'Proof of Payment']]);
-        xlsx.utils.book_append_sheet(workbook, worksheet, 'Orders');
+        res.json({ message: 'Order placed successfully!' });
+    } catch (error) {
+        console.error('Error appending data to Google Sheets:', error);
+        res.status(500).json({ message: 'Error placing order. Please try again.' });
     }
-
-    // Append the new data
-    const newRow = [[name, email, phone, order, total, delivery, location, payment, proofOfPayment]];
-    xlsx.utils.sheet_add_aoa(worksheet, newRow, { origin: -1 });
-
-    // Save the Excel file
-    xlsx.writeFile(workbook, filePath);
-
-    res.json({ message: 'Order placed successfully!' });
 });
 
 // Serve the frontend form
