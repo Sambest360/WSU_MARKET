@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Professional Piercings - WSU Small Business Services</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -12,25 +12,28 @@
             padding: 0;                                                         
             background-color: #fff0f5;
             color: #4a4a4a;
+            font-size: 16px;
         }
         header {
             background-color: #ff69b4;
             color: white;
             text-align: center;
-            padding: 2rem;
+            padding: 1rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #ffffff;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
             margin: 0;
         }
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 1rem;
+            box-sizing: border-box;
         }
         h2, h3 {
             color: #ff1493;
@@ -39,9 +42,9 @@
         }
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
         .gallery-item {
             background-color: white;
@@ -56,19 +59,32 @@
         }
         .gallery-item img {
             width: 100%;
-            height: 200px;
+            height: 150px;
             object-fit: cover;
             display: block;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item img.enlarged {
+            transform: scale(1.1);
         }
         .info {
-            padding: 1rem;
+            padding: 0.5rem;
             text-align: center;
         }
-        .cta-button {
+        .info h3 {
+            font-size: 1rem;
+            margin: 0.5rem 0;
+        }
+        .info p {
+            font-size: 0.8rem;
+            margin: 0;
+        }
+        .cta-button, .back-button, .whatsapp-button {
             display: inline-block;
             background-color: #ff69b4;
             color: white;
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1rem;
             text-decoration: none;
             border-radius: 25px;
             margin-top: 1rem;
@@ -76,97 +92,133 @@
             font-weight: 600;
             border: none;
             cursor: pointer;
+            font-size: 0.9rem;
         }
-        .cta-button:hover {
+        .cta-button:hover, .back-button:hover, .whatsapp-button:hover {
             background-color: #ff1493;
             transform: scale(1.05);
         }
         .contact-form {
             background-color: white;
-            padding: 1.5rem;
+            padding: 1rem;
             border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
         .form-group {
             margin-bottom: 1rem;
         }
         .contact-button {
             text-align: center;
-            margin-top: 20px;
-        }
-        .whatsapp-button {
-            display: inline-flex;
-            align-items: center;
-            background-color: #25D366;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        .whatsapp-button:hover {
-            background-color: #128C7E;
+            margin-top: 1rem;
         }
         .whatsapp-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            vertical-align: middle;
         }
         label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
             color: #ff69b4;
+            font-size: 0.9rem;
         }
         input, textarea {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.5rem;
             border: 2px solid #ffb6c1;
             border-radius: 8px;
             font-family: 'Poppins', sans-serif;
             transition: border-color 0.3s ease;
             box-sizing: border-box;
+            font-size: 0.9rem;
         }
         input:focus, textarea:focus {
             outline: none;
             border-color: #ff1493;
         }
         textarea {
-            height: 120px;
+            height: 100px;
+        }
+        .video-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 1rem auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
+            body {
+                font-size: 14px;
             }
-            .gallery {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-            .contact-form {
-                padding: 1rem;
-            }
-        }
-        @media (max-width: 480px) {
             h1 {
                 font-size: 1.8rem;
             }
             .gallery {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            .gallery-item img {
+                height: 120px;
+            }
+            .video-container {
+                max-width: 100%;
+            }
+        }
+        @media (max-width: 480px) {
+            body {
+                font-size: 12px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery-item img {
+                height: 100px;
             }
             .container {
                 padding: 0.5rem;
+            }
+            .video-container {
+                border-radius: 10px;
+                margin: 0.5rem auto;
+            }
+            .cta-button, .back-button, .whatsapp-button {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Professional Piercings at WSU</h1>
+        <h1>Smile_Piercing hub</h1>
     </header>
     <div class="container">
         <h2 style="text-align: center;">Explore Our Range of Professional Piercing Services</h2>
-        <p style="text-align: center;">At WSU, we offer a wide variety of safe and stylish piercing options performed by trained professionals. Express your individuality and enhance your beauty with our high-quality piercing services.</p>
+        <p style="text-align: center;">At Smile_Piercing hub, we offer a wide variety of safe and stylish piercing options. Express your individuality and enhance your beauty with our high-quality piercing services.</p>
+        
+        <div class="video-container">
+            <video id="piercingVideo" controls>
+                <source src="img/VID-20240906-WA0005.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
         <div class="gallery">
             <div class="gallery-item">
                 <img src="img/ear.jpg" alt="Ear Piercing">
@@ -196,9 +248,6 @@
                     <p>Labret, monroe, and medusa</p>
                 </div>
             </div>
-        </div>
-        
-        <div class="gallery">
             <div class="gallery-item">
                 <img src="img/eyebrow.jpg" alt="Eyebrow Piercing">
                 <div class="info">
@@ -229,6 +278,38 @@
                 Contact via WhatsApp
             </a>
         </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" class="back-button">Back to Main Page</a>
+        </div>
     </div>
+    <script>
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', function() {
+                this.classList.add('enlarged');
+                setTimeout(() => {
+                    this.classList.remove('enlarged');
+                }, 2000); // 2000 milliseconds = 2 seconds
+            });
+        });
+
+        // Dynamic video playback
+        const video = document.getElementById('piercingVideo');
+        let isPlaying = false;
+
+        video.addEventListener('click', function() {
+            if (isPlaying) {
+                video.pause();
+                isPlaying = false;
+            } else {
+                video.play();
+                isPlaying = true;
+            }
+        });
+
+        video.addEventListener('ended', function() {
+            isPlaying = false;
+            video.currentTime = 0;
+        });
+    </script>
 </body>
 </html>
